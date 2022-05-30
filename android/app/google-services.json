@@ -1,0 +1,76 @@
+{
+  "project_info": {
+    "project_number": "807922694941",
+    "project_id": "drugdisease-1dc59",
+    "storage_bucket": "drugdisease-1dc59.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:807922694941:android:7beb1847874fb233e4bff4",
+        "android_client_info": {
+          "package_name": "com.example.medicines"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "807922694941-s84gpela7m4fksi858b1aqn8i4r6mu9u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC35SnM3eUBtYI906MW-IGcnylkZLF1vp4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "807922694941-s84gpela7m4fksi858b1aqn8i4r6mu9u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:807922694941:android:88a12a28fa10bad6e4bff4",
+        "android_client_info": {
+          "package_name": "com.example.user_profile_shared_preferences_example"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "807922694941-kr1ks9ab4lipsc125qbi0p4pt0v7bs1r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.user_profile_shared_preferences_example",
+            "certificate_hash": "ca7b1659105deddc18b99b5d32f905d80f9bb7aa"
+          }
+        },
+        {
+          "client_id": "807922694941-s84gpela7m4fksi858b1aqn8i4r6mu9u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC35SnM3eUBtYI906MW-IGcnylkZLF1vp4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "807922694941-s84gpela7m4fksi858b1aqn8i4r6mu9u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

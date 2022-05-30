@@ -1,8 +1,13 @@
 import 'dart:io';
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:user_profile_shared_preferences_example/Bloc/AppCubit/cubit.dart';
+import 'package:user_profile_shared_preferences_example/Bloc/AppStates/states.dart';
+import 'package:user_profile_shared_preferences_example/model/User_Model/user_model.dart';
 import 'package:user_profile_shared_preferences_example/model/user.dart';
 import 'package:user_profile_shared_preferences_example/utils/user_preferences.dart';
 import 'package:user_profile_shared_preferences_example/widget/appbar_widget.dart';
@@ -10,7 +15,6 @@ import 'package:user_profile_shared_preferences_example/widget/button_widget.dar
 import 'package:user_profile_shared_preferences_example/widget/profile_widget.dart';
 import 'package:user_profile_shared_preferences_example/widget/textfield_widget.dart';
 import 'package:path/path.dart';
-import 'package:grouped_checkbox/grouped_checkbox.dart';
 import 'package:user_profile_shared_preferences_example/model/notification_setting.dart';
 
 class EditProfilePage extends StatefulWidget {
@@ -43,18 +47,23 @@ class _EditProfilePageState extends State<EditProfilePage> {
   ];
 
   @override
-  Widget build(BuildContext context) => ThemeSwitchingArea(
+  Widget build(BuildContext context) =>BlocConsumer<AppCubit,AppStates>(
+    listener: (context,state){},
+    builder: (context,state){
 
-        child: Builder(
+      return ThemeSwitchingArea(
+
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        body: Builder(
           builder: (context) => Scaffold(
             appBar: buildAppBar(context),
-            backgroundColor: Color(0xFF100F1E),
             body: ListView(
               padding: EdgeInsets.symmetric(horizontal: 32),
               physics: BouncingScrollPhysics(),
               children: [
                 ProfileWidget(
-                  imagePath: user.imagePath,
+                  imagePath: (user.imagePath)! ,
                   isEdit: true,
                   onClicked: () async {
                     final image = await ImagePicker()
@@ -66,39 +75,40 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     final name = basename(image.path);
                     final imageFile = File('${directory.path}/$name');
                     final newImage =
-                        await File(image.path).copy(imageFile.path);
+                    await File(image.path).copy(imageFile.path);
+                    // AppCubit.get(context).getProfileImage();
 
-                    setState(() => user = user.copy(imagePath: newImage.path));
+                    setState(() => user = user.copy(imagePath:newImage.path));
                   },
                 ),
                 const SizedBox(height: 24),
                 TextFieldWidget(
                   label: 'Full Name',
-                  text: user.name,
+                  text: AppCubit.get(context).userModel!.fullName!,
                   onChanged: (name) => user = user.copy(name: name),
                 ),
                 const SizedBox(height: 24),
                 TextFieldWidget(
                   label: 'Age',
-                  text: user.age,
+                  text:  AppCubit.get(context).userModel!.age!,
                   onChanged: (age) => user = user.copy(age: age),
                 ),
                 const SizedBox(height: 24),
                 TextFieldWidget(
                   label: 'Phone Number',
-                  text: user.phoneNumber,
+                  text:  AppCubit.get(context).userModel!.phoneNumber!,
                   onChanged: (phoneNumber) => user = user.copy(phoneNumber: phoneNumber),
                 ),
                 const SizedBox(height: 24),
                 TextFieldWidget(
                   label: 'Email',
-                  text: user.email,
+                  text:  AppCubit.get(context).userModel!.email!,
                   onChanged: (email) => user = user.copy(email: email),
                 ),
                 const SizedBox(height: 24),
                 TextFieldWidget(
                   label: 'About',
-                  text: user.about,
+                  text:  AppCubit.get(context).userModel!.bio!,
                   maxLines: 5,
                   onChanged: (about) => user = user.copy(about: about),
                 ),
@@ -111,7 +121,23 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   text: 'Save',
                   onClicked: () {
                     UserPreferences.setUser(user);
-                    Navigator.of(context).pop();
+                    AppCubit.get(context).getProfile(context).then((value) {
+                      Navigator.of(context).pop();
+                    });
+                    print(user.email);
+                    AppCubit.get(context).uploadProfile(
+                        name: user.name,
+                        age: user.age,
+                        phoneNumber: user.phoneNumber,
+                        email: user.email,
+                        about: user.about,
+                        uId:  user.imagePath,
+                        imagePath: user.imagePath
+                    );
+                    // AppCubit.get(context).uploadUserImage().then((value) {
+                    //
+                    // });
+
                   },
                 ),
               ],
@@ -119,7 +145,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
           ),
 
         ),
-      );
+      ),
+    );
+    },
+  );
   Widget buildToggleCheckbox(Diseases disease) => buildCheckbox(
       disease: disease,
       onClicked: () {

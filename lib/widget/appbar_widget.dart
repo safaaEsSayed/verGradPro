@@ -7,7 +7,7 @@ import 'package:user_profile_shared_preferences_example/utils/user_preferences.d
 AppBar buildAppBar(BuildContext context) {
   final user = UserPreferences.getUser();
   final isDarkMode = user.isDarkMode;
-  final icon = isDarkMode ? CupertinoIcons.sun_max : CupertinoIcons.moon_stars;
+  final icon = isDarkMode! ? CupertinoIcons.sun_max : CupertinoIcons.moon_stars;
 
   return AppBar(
     leading: BackButton(),
@@ -18,12 +18,12 @@ AppBar buildAppBar(BuildContext context) {
         builder: (context) => IconButton(
           icon: Icon(icon),
           onPressed: () {
-            final theme = isDarkMode ? MyThemes.lightTheme : MyThemes.darkTheme;
+            final theme = isDarkMode! ? MyThemes.lightTheme : MyThemes.darkTheme;
 
             final switcher = ThemeSwitcher.of(context)!;
             switcher.changeTheme(theme: theme);
 
-            final newUser = user.copy(isDarkMode: !isDarkMode);
+            final newUser = user.copy(isDarkMode: !isDarkMode!);
             UserPreferences.setUser(newUser);
           },
         ),

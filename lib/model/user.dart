@@ -1,11 +1,11 @@
 class User {
-  final String imagePath;
-  final String name;
-  final String email;
-  final String about;
-  final bool isDarkMode;
-  final String age;
-  final String phoneNumber;
+  String? imagePath;
+   String? name;
+  String? email;
+  String? about;
+  bool? isDarkMode;
+  String? age;
+  String? phoneNumber;
 
   User({
     required this.imagePath,

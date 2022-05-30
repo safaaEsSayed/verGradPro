@@ -17,11 +17,21 @@ dependencies:
   shared_preferences: ^2.0.5
 
   # pick image
-  image_picker: ^0.7.4
+  image_picker: ^0.8.4+8
+
 
   # store image
   path_provider: ^2.0.1
-  grouped_checkbox: 1.0.0
+  grouped_checkbox: ^1.0.0
+
+  # firebase
+  firebase_core: ^1.17.0
+  cloud_firestore: ^3.1.17
+  firebase_storage: ^10.0.3
+
+  #stateMangement
+  bloc: ^8.0.3
+  flutter_bloc: ^8.0.1
 
 dev_dependencies:
   flutter_test:

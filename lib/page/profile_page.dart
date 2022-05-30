@@ -1,5 +1,10 @@
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:user_profile_shared_preferences_example/Bloc/AppCubit/cubit.dart';
+import 'package:user_profile_shared_preferences_example/Bloc/AppStates/states.dart';
+import 'package:user_profile_shared_preferences_example/model/User_Model/user_model.dart';
 import 'package:user_profile_shared_preferences_example/model/user.dart';
 import 'package:user_profile_shared_preferences_example/page/edit_profile_page.dart';
 import 'package:user_profile_shared_preferences_example/utils/user_preferences.dart';
@@ -17,47 +22,68 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     final user = UserPreferences.getUser();
 
-    return ThemeSwitchingArea(
-      child: Builder(
-        builder: (context) => Scaffold(
-          appBar: buildAppBar(context),
-          backgroundColor: Color(0xFF100F1E),
-          body: ListView(
-            physics: BouncingScrollPhysics(),
-            children: [
-              ProfileWidget(
-                imagePath: user.imagePath,
-                onClicked: () async {
-                  await Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => EditProfilePage()),
-                  );
-                  setState(() {});
-                },
-              ),
-              const SizedBox(height: 24),
-              buildName(user),
-              const SizedBox(height: 24),
-              buildAge(user),
-              const SizedBox(height: 24),
-              buildPhoneNumber(user),
-              const SizedBox(height: 48),
-              buildAbout(user),
-            ],
+
+    return BlocConsumer<AppCubit,AppStates>(
+      listener: (context,state){
+
+      },
+      builder: (context,state){
+        return ThemeSwitchingArea(
+
+          child: Builder(
+
+              builder: (context) {
+
+                return Scaffold(
+            appBar: buildAppBar(context),
+            backgroundColor: Color(0xFF100F1E),
+            body: AppCubit.get(context).userModel==null?
+                Center(
+                  child: CircularProgressIndicator(
+
+                  ),
+                ):
+                 ListView(
+              physics: BouncingScrollPhysics(),
+              children: [
+                ProfileWidget(
+                  imagePath: (user.imagePath)!,
+                  onClicked: ()  {
+
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (_){
+                      return EditProfilePage(title: 'kk');
+                    }));
+
+                  },
+                ),
+                const SizedBox(height: 24),
+                buildName(user),
+                const SizedBox(height: 24),
+                buildAge(user),
+                const SizedBox(height: 24),
+                buildPhoneNumber(user),
+                const SizedBox(height: 48),
+                buildAbout(user),
+              ],
+            ),
+          ) ;
+              },
           ),
-        ),
-      ),
+        );
+      },
+
     );
   }
 
   Widget buildName(User user) => Column(
         children: [
           Text(
-            user.name,
+            AppCubit.get(context).userModel!.fullName!,
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
           ),
           const SizedBox(height: 4),
           Text(
-            user.email,
+            AppCubit.get(context).userModel!.email!,
             style: TextStyle(color: Colors.grey),
           ),
           const SizedBox(height: 4),
@@ -75,7 +101,7 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             const SizedBox(height: 10),
             Text(
-              user.age,
+              AppCubit.get(context).userModel!.age!,
               style: TextStyle(fontSize: 16, height: 1.4),
             ),
           ],
@@ -93,7 +119,7 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             const SizedBox(height: 10),
             Text(
-              user.phoneNumber,
+              AppCubit.get(context).userModel!.phoneNumber!,
               style: TextStyle(fontSize: 16, height: 1.4),
             ),
           ],
@@ -111,7 +137,7 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             const SizedBox(height: 10),
             Text(
-              user.about,
+              AppCubit.get(context).userModel!.bio!,
               style: TextStyle(fontSize: 16, height: 1.4),
             ),
           ],
