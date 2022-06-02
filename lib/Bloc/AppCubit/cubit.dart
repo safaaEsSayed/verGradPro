@@ -127,5 +127,25 @@ class AppCubit extends Cubit<AppStates>{
 
   }
 
+  List userDiseases =[];
+
+  void uploadUserDiseases(){
+
+    FirebaseFirestore.instance.collection('userDiseases').add(
+        {
+          'Diseases': userDiseases.toList()
+        }
+     ).then((value) {
+      print(value);
+      emit( UploadDiseasesSuccessState());
+    }).catchError((error){
+      print ('Error is ${error.toString()}');
+      emit( UploadDiseasesErrorState());
+    });
+
+
+
+  }
+
 
 }

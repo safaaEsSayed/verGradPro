@@ -40,10 +40,18 @@ class _EditProfilePageState extends State<EditProfilePage> {
   final allDiseases = Diseases(title: 'All Diseases');
 
   final diseases = [
-    Diseases(title: 'Hypertension'),
-    Diseases(title: 'Diastolic'),
-    Diseases(title: 'Progressive'),
-    Diseases(title: 'Cutaneous'),
+    Diseases(title: 'Diabetes Mellitus'),
+    Diseases(title: 'Asthma'),
+    Diseases(title: 'CADASIL'),
+    Diseases(title: 'Breast Neoplasms'),
+    Diseases(title: 'Diabetes Mellitus'),
+    Diseases(title: 'Paraplegia'),
+    Diseases(title: 'Rodrigues Blindness'),
+    Diseases(title: 'Hypertension, Diastolic, Resistance To'),
+    Diseases(title: 'Renal Failure, Progressive, With Hypertension'),
+    Diseases(title: 'Hyperthermia, Cutaneous, With Headaches And Nausea'),
+    Diseases(title: 'Insensitivity To Pain With Hyperplastic Myelinopathy'),
+    Diseases(title: 'Migraine With Or Without Aura, Susceptibility To, 1'),
   ];
 
   @override
@@ -115,8 +123,25 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 const SizedBox(height: 24),
                 buildToggleCheckbox(allDiseases),
                 Divider(),
-                ...diseases.map(buildSingleCheckbox).toList(),
+                Container(
+                  height: MediaQuery.of(context).size.height*.5,
 
+                  child: ListView.separated(
+                    itemCount: diseases.length,
+                    itemBuilder: (context,index){
+                      // print(diseases[index].value);
+                      // if(diseases[index].value==true){
+                      //   AppCubit.get(context).userDiseases.add(diseases[index].title);
+                      // }
+                      // print(AppCubit.get(context).userDiseases);
+                      return buildSingleCheckbox(diseases[index]);
+                    },
+                    separatorBuilder: (context,index){
+                      return SizedBox(height: 10,);
+                    },
+                  ),
+                ),
+                 SizedBox(height: 10,),
                 ButtonWidget(
                   text: 'Save',
                   onClicked: () {
@@ -125,6 +150,21 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       Navigator.of(context).pop();
                     });
                     print(user.email);
+                    AppCubit.get(context).userDiseases=[];
+                    diseases.map((e) {
+                      if(e.value==false || AppCubit.get(context).userDiseases.contains(e.title)){
+                        // print(e.value);
+                        // print(e.title);
+                      }
+                      else{
+                        print(e.value);
+                        print(e.title);
+                        AppCubit.get(context).userDiseases.add(e.title);
+                      }
+
+                    }).toList();
+                     print(AppCubit.get(context).userDiseases);
+
                     AppCubit.get(context).uploadProfile(
                         name: user.name,
                         age: user.age,
@@ -134,6 +174,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         uId:  user.imagePath,
                         imagePath: user.imagePath
                     );
+                    AppCubit.get(context).uploadUserDiseases();
+
                     // AppCubit.get(context).uploadUserImage().then((value) {
                     //
                     // });
