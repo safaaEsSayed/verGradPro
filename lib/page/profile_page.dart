@@ -46,24 +46,56 @@ class _ProfilePageState extends State<ProfilePage> {
                  ListView(
               physics: BouncingScrollPhysics(),
               children: [
-                ProfileWidget(
-                  imagePath: (user.imagePath)!,
-                  onClicked: ()  {
+                  ProfileWidget(
+                    imagePath: (user.imagePath)!,
+                    onClicked: ()  {
 
-                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (_){
-                      return EditProfilePage(title: 'kk');
-                    }));
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (_){
+                        return EditProfilePage(title: 'kk');
+                      }));
 
-                  },
-                ),
-                const SizedBox(height: 24),
-                buildName(user),
-                const SizedBox(height: 24),
-                buildAge(user),
-                const SizedBox(height: 24),
-                buildPhoneNumber(user),
-                const SizedBox(height: 48),
-                buildAbout(user),
+                    },
+                  ),
+                  const SizedBox(height: 24),
+                  buildName(user),
+                  const SizedBox(height: 24),
+                  buildAge(user),
+                  const SizedBox(height: 24),
+                  buildPhoneNumber(user),
+                  const SizedBox(height: 25),
+                  buildAbout(user),
+                  SizedBox(height: 20,),
+                  Container(
+                    margin: EdgeInsets.only(left: 45),
+                    child: Text('Diseases :',style: TextStyle(
+                      fontSize: 22,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold
+                    ),),
+                  ),
+                SizedBox(height: 20,),
+                Container(
+                    height: 200,
+                    child: ListView.separated(
+                        itemBuilder: (context,index){
+                          return Container(
+                            child: Column(
+                              children: [
+                                Text(AppCubit.get(context).getDiseases[0][index],style: TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.white,
+                                ),),
+                              ],
+                            ),
+                          );
+                        },
+                        separatorBuilder: (context,index){
+                          return SizedBox(height: 5,);
+                        },
+                        itemCount: AppCubit.get(context).getDiseases[0].length
+                    ),
+                  )
+
               ],
             ),
           ) ;

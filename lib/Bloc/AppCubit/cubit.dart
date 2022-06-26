@@ -1,3 +1,4 @@
+import 'dart:ffi';
 import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:bloc/bloc.dart';
@@ -143,6 +144,34 @@ class AppCubit extends Cubit<AppStates>{
       emit( UploadDiseasesErrorState());
     });
 
+  }
+
+  List getDiseases=[] ;
+
+  void getUserDiseases(){
+
+
+    FirebaseFirestore.instance
+        .collection('userDiseases').doc('2DnzlDTaYfMqrUX5vQKq')
+        .get().then((value) {
+
+      getDiseases=value.data()!.values.toList();
+
+      print(getDiseases.length);
+      print('sssssssssssssssssssssssssssssssssssssss');
+      print(getDiseases[0].toString().length);
+      print('sssssssssssssssssssssssssssssssssssssss');
+
+      emit(GetDiseasesSuccessState());
+
+
+    }).catchError((error){
+
+      print('Error is ${error.toString()}');
+      emit(GetDiseasesErrorState());
+
+
+    });
 
 
   }

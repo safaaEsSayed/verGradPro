@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
 
     return BlocProvider(
 
-      create: (BuildContext context) =>AppCubit()..getProfile(context),
+      create: (BuildContext context) =>AppCubit()..getProfile(context)..getUserDiseases(),
       child: BlocConsumer<AppCubit,AppStates>(
         listener: (context,state){
 

@@ -22,3 +22,6 @@ class  UploadUserProfileImageErrorState extends AppStates{}
 
 class  UploadDiseasesSuccessState extends AppStates{}
 class  UploadDiseasesErrorState extends AppStates{}
+
+class  GetDiseasesSuccessState extends AppStates{}
+class  GetDiseasesErrorState extends AppStates{}
