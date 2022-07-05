@@ -5,10 +5,14 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:user_profile_shared_preferences_example/Bloc/AppCubit/cubit.dart';
 import 'package:user_profile_shared_preferences_example/Bloc/AppStates/states.dart';
+import 'package:user_profile_shared_preferences_example/appOpening/splash_screen.dart';
+import 'package:user_profile_shared_preferences_example/navigationBarPages/home_page.dart';
 import 'package:user_profile_shared_preferences_example/page/edit_profile_page.dart';
 import 'package:user_profile_shared_preferences_example/page/profile_page.dart';
 import 'package:user_profile_shared_preferences_example/themes.dart';
 import 'package:user_profile_shared_preferences_example/utils/user_preferences.dart';
+
+import 'navigationBarPages/first_page.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -44,7 +48,7 @@ class MyApp extends StatelessWidget {
               builder: (context) => MaterialApp(
                   debugShowCheckedModeBanner: false,
                   title: title,
-                  home: ProfilePage()
+                  home: Splash()
               ),
             ),
           );

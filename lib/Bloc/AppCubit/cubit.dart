@@ -1,4 +1,4 @@
-import 'dart:ffi';
+//import 'dart:ffi';
 import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:bloc/bloc.dart';
@@ -9,7 +9,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
 import 'package:user_profile_shared_preferences_example/Bloc/AppStates/states.dart';
-import 'package:user_profile_shared_preferences_example/page/edit_profile_page.dart';
+//import 'package:user_profile_shared_preferences_example/page/edit_profile_page.dart';
 
 import '../../model/User_Model/user_model.dart';
 

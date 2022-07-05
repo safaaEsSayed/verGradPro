@@ -37,12 +37,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 return Scaffold(
             appBar: buildAppBar(context),
             backgroundColor: Color(0xFF100F1E),
-            body: AppCubit.get(context).userModel==null?
-                Center(
-                  child: CircularProgressIndicator(
-
-                  ),
-                ):
+            body:
                  ListView(
               physics: BouncingScrollPhysics(),
               children: [
