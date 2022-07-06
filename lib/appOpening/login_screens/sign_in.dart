@@ -1,9 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 import 'package:user_profile_shared_preferences_example/constants/colors.dart';
 import 'package:user_profile_shared_preferences_example/navigationBarPages/first_page.dart';
+
+import 'forget_password.dart';
 class Sign_in extends StatefulWidget {
   @override
   State<Sign_in> createState() => _sign_inState();
@@ -14,20 +17,20 @@ class _sign_inState extends State<Sign_in> {
   final passwordControler=TextEditingController();
   final _formKey=GlobalKey<FormState>();
   @override
- /* void UserLogin({
-    @required String email,
-    @required String password,
+  void UserLogin({
+    required String email,
+    required String password,
   }) {
-    if (_formKey.currentState.validate()) {
+    if (_formKey.currentState!.validate()) {
       FirebaseAuth.instance.signInWithEmailAndPassword
         (email: email, password: password).then((value) {
         print('created new account');
       } );
 
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => HomePage()))
+          context, MaterialPageRoute(builder: (context) => BottomNavBar()))
           .onError((error, stackTrace) => 'error is ${error.toString()}');
-    }} */
+    }}
   bool hide = true;
   @override
   Widget build(BuildContext context) {
@@ -157,7 +160,7 @@ class _sign_inState extends State<Sign_in> {
                     padding: const EdgeInsets.symmetric(horizontal: 15.0),
                     child: TextButton(
                       onPressed: () {
-                      //  Navigator.push(context, MaterialPageRoute(builder: (context)=>ForgotPassword()));
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>ForgotPassword()));
                       }, child: Text('Forget password?',
                       style: TextStyle(color: KMainColor),),),
                   ),),
@@ -171,7 +174,8 @@ class _sign_inState extends State<Sign_in> {
                       height: 56,
                       child: MaterialButton(
                         onPressed:()=>{
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=>BottomNavBar()))
+                          UserLogin(email: emailControler.text, password: passwordControler.text)
+                         // Navigator.push(context, MaterialPageRoute(builder: (context)=>BottomNavBar()))
                         },
                         /**  FirebaseAuth.instance.signInWithEmailAndPassword
                             (email: emailControler.text, password: passwordControler.text).then((value) {

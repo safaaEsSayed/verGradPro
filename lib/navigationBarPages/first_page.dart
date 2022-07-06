@@ -2,6 +2,7 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:user_profile_shared_preferences_example/navigationBarPages/food_page.dart';
 import 'package:user_profile_shared_preferences_example/page/profile_page.dart';
+import 'package:user_profile_shared_preferences_example/navigationBarPages/alarm_page.dart';
 import 'home_page.dart';
 import 'map_page.dart';
 
@@ -19,7 +20,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
   }
   final _pageOptions = [
     FoodPage(),
-    FoodPage(),
+    Alarm(),
     HomePage(),
     ProfilePage(),
     MapPage(),

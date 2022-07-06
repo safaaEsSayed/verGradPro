@@ -1,4 +1,5 @@
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:user_profile_shared_preferences_example/appOpening/login_screens/sign_in.dart';
 import 'package:user_profile_shared_preferences_example/constants/colors.dart';
@@ -19,7 +20,7 @@ class _SignUpState extends State<SignUp> {
   TextEditingController nameControler=TextEditingController();
   TextEditingController phoneControler=TextEditingController();
 
-/*  void UserRegister({
+  void UserRegister({
     required String name,
     required String email,
     required String password,
@@ -32,10 +33,10 @@ class _SignUpState extends State<SignUp> {
       } );
 
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => HomePage()))
+          context, MaterialPageRoute(builder: (context) => Sign_in()))
           . onError((error, stackTrace) =>'error is ${error.toString()}');
     }
-  }*/
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -246,13 +247,13 @@ class _SignUpState extends State<SignUp> {
                           builder: (context) {
                             return MaterialButton(
                               onPressed:(){
-                                Navigator.push(context, MaterialPageRoute(builder: (context)=>BottomNavBar()));
-                                /*UserRegister(
+                              //  Navigator.push(context, MaterialPageRoute(builder: (context)=>BottomNavBar()));
+                                UserRegister(
                                   name: nameControler.text,
                                   email: emailControler.text,
                                   password: passwordControler.text,
                                   phone: phoneControler.text)
-                              ;*/
+                              ;
                               },
 
                               color: KMainColor,
