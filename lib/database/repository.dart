@@ -5,7 +5,7 @@ import 'package:user_profile_shared_preferences_example/database/pills_database.
 class Repository{
 
   PillsDatabase _pillsDatabase = PillsDatabase();
-  static Database _database;
+  late Database _database;
 
   //init database
   Future<Database> get database async{
@@ -15,7 +15,7 @@ class Repository{
   }
 
   //insert something to database
-  Future<int> insertData(String table,Map<String,dynamic> data) async{
+  Future<int?> insertData(String table,Map<String,dynamic> data) async{
     Database db = await database;
     try{
       return await db.insert(table, data);
@@ -25,7 +25,7 @@ class Repository{
   }
 
   //get all data from database
-  Future<List<Map<String,dynamic>>> getAllData(table) async{
+  Future<List<Map<String,dynamic>>?> getAllData(table) async{
     Database db = await database;
     try{
       return db.query(table);
@@ -35,7 +35,7 @@ class Repository{
   }
 
   //delete data
-  Future<int> deleteData(String table,int id) async{
+  Future<int?> deleteData(String table,int id) async{
     Database db = await database;
     try{
       return await db.delete(table,where: "id = ?", whereArgs: [id]);

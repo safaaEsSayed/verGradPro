@@ -31,7 +31,7 @@ class _AlarmState extends State<Alarm> {
 
   //-----------------| Calendar days |------------------
   final CalendarDayModel _days = CalendarDayModel();
-  List<CalendarDayModel> _daysList;
+  late List<CalendarDayModel> _daysList;
   //====================================================
 
   //handle last choose day index in calendar
@@ -52,7 +52,7 @@ class _AlarmState extends State<Alarm> {
   //--------------------GET ALL DATA FROM DATABASE---------------------
   Future setData() async {
     allListOfPills.clear();
-    (await _repository.getAllData("Pills")).forEach((pillMap) {
+    (await _repository.getAllData("Pills"))!.forEach((pillMap) {
       allListOfPills.add(Pill().pillMapToObject(pillMap));
     });
     chooseDay(_daysList[_lastChooseDay]);
@@ -108,7 +108,7 @@ class _AlarmState extends State<Alarm> {
                           style: Theme.of(context)
                               .textTheme
                               .headline1
-                              .copyWith(color: Colors.pink[800]),
+                              !.copyWith(color: Colors.pink[800]),
                         ),
                         ShakeAnimatedWidget(
                           enabled: true,

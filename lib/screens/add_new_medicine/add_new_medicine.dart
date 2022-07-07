@@ -311,7 +311,9 @@ class _AddNewMedicineState extends State<AddNewMedicine> {
     if (setDate.millisecondsSinceEpoch <=
         DateTime.now().millisecondsSinceEpoch) {
       snackbar.showSnack(
-          "Check your medicine time and date", _scaffoldKey, null);
+          "Check your medicine time and date", _scaffoldKey,
+          null
+      );
     } else {
       //create pill object
       Pill pill = Pill(
